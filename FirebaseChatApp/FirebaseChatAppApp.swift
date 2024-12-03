@@ -10,23 +10,16 @@ import SwiftData
 
 @main
 struct FirebaseChatAppApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    init() {
+        Injector.shared.initInjector()
+    }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainRouteView()
         }
-        .modelContainer(sharedModelContainer)
     }
 }
